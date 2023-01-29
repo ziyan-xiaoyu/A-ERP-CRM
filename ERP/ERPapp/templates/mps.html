@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="shortcut icon" href="#" />
+    <meta charset="UTF-8">
+    <title>MPS计算</title>
+
+</head>
+
+<body style="background: url(/static/img/leaf.jpg/) ; background-size:100%,100% ; background-attachment: fixed">
+
+<!--以下为 输入 内容-->
+<h3>输入一条MPS记录</h3>
+<form method="post">
+    {% csrf_token %}
+    <label>产品名称</label>
+    <input type="text" placeholder="名称" name="MPS_name"/>
+    &nbsp;&nbsp;&nbsp;
+    <label>数量</label>
+    <input type="text" placeholder="数量" name="MPS_num"/>
+    &nbsp;&nbsp;&nbsp;
+    <label>完工日期</label>
+    <input id="dt" type="text" autocomplete="off" placeholder="日期" name="MPS_time"/>
+    &nbsp;&nbsp;&nbsp;
+    <button type="submit">提 交</button>
+    &nbsp;&nbsp;
+    {{msg}}
+</form>
+
+<br/>
+<!--以下为 输出 内容-->
+
+<!--输出 相应的采购和生产计划表-->
+<div style="width:50%">
+<h3>相应的采购和生产计划</h3>
+<h4  align="center"><font color="green">MRP计算结果表</font></h4>
+<table class=table4_10 align="center">
+    <thead>
+    <tr>
+        <th>调配方式</th>
+        <th>物料号</th>
+        <th>物料名称</th>
+        <th>需求数量</th>
+        <th>日程下达日期</th>
+        <th>日程完成日期</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for items in plan_list %}
+    <tr>
+        <td>{{ items.0 }}</td>
+        <td>{{ items.1 }}</td>
+        <td>{{ items.2 }}</td>
+        <td>{{ items.3 }}</td>
+        <td>{{ items.4 }}</td>
+        <td>{{ items.5 }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <br/>
+    <br/>
+    <a href="/index/"><button type="submit" style="margin-left:45% ">返 回 首 页</button></a>
+</div>
+
+<!--    表格样式-->
+    <style>
+    .table4_10 table {
+        width:100%;
+        margin:15px 0;
+        border:0;
+    }
+    .table4_10 th {
+        background-color:#54BD54;
+        color:#FFFFFF
+    }
+    .table4_10,.table4_10 th,.table4_10 td {
+        font-size:0.95em;
+        text-align:center;
+        padding:4px;
+        border-collapse:collapse;
+    }
+    .table4_10 th,.table4_10 td {
+        border: 1px solid #9dd99d;
+        border-width:1px 0 1px 0
+    }
+    .table4_10 tr {
+        border: 1px solid #9dd99d;
+    }
+    .table4_10 tr:nth-child(odd){
+        background-color:#c6e9c6;
+    }
+    .table4_10 tr:nth-child(even){
+        background-color:#fdfdfd;
+    }
+    </style>
+
+</body>
+</html>
